@@ -208,14 +208,10 @@ async def admin_sessions_service(message: types.Message):
         chanel_control_session[user_id] = True
         kb = [
             [
-                types.KeyboardButton(text="Kino qoshish 🎬"),
-                types.KeyboardButton(text="Kinolar royxati 🎬")
+                types.KeyboardButton(text="Kanal qoshish ➕"),
+                types.KeyboardButton(text="Kanallar royxati 📄"),
             ],
-            [
-                types.KeyboardButton(text="Kino o'chirish ❌"),
-                types.KeyboardButton(text="Kanal qo'shish ➕")
-            ],
-            [types.KeyboardButton(text="Orqaga qaytish 🔙")],
+            [types.KeyboardButton(text="Orqaga qaytish  🔙")]
         ]
         keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)
         await message.answer(
