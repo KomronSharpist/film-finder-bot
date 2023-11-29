@@ -60,7 +60,7 @@ async def cmd_start(message: types.Message):
         return
     else:
         keyboard = types.ReplyKeyboardRemove()
-        await message.answer("Salom! 👋", reply_markup=keyboard)
+        await message.answer("✌️Assalomu Aleykum\n👨‍🔧Men Sizga kod orqali kino topib beraman!\nBuning uchun botga kino kodini yuborsangiz bo'lgani.", reply_markup=keyboard)
 
 @dp.message(Command("admin"))
 async def cmd_start_admin(message: types.Message):
@@ -334,7 +334,7 @@ async def channel_controller(callback: types.CallbackQuery):
         else:
             await bot.delete_message(chat_id=callback.message.chat.id, message_id=callback.message.message_id)
             await callback.answer("")
-            await callback.message.answer("Salom! 👋", parse_mode="HTML")
+            await callback.message.answer("✌️Assalomu Aleykum\n👨‍🔧Men Sizga kod orqali kino topib beraman!\nBuning uchun botga kino kodini yuborsangiz bo'lgani.", parse_mode="HTML")
 
 async def set_default_commands():
     await bot.set_my_commands([
