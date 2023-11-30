@@ -175,6 +175,7 @@ async def delete_film_by_code(message: types.Message):
 
         if not isinstance(data, list) or not data:
             await bot.send_message(message.from_user.id, "Hozircha hech qanday filmlar yo'q❗️")
+            del film_delete_session[message.from_user.id]
             return
 
         code_to_delete = message.text
@@ -188,9 +189,11 @@ async def delete_film_by_code(message: types.Message):
             del film_delete_session[message.from_user.id]
         else:
             await bot.send_message(message.from_user.id, "Bunaqa kod bilan film topilmadi❗️")
+            del film_delete_session[message.from_user.id]
 
     except FileNotFoundError:
         await bot.send_message(message.from_user.id, "Hozircha hech qanday filmlar yo'q❗️")
+        del film_delete_session[message.from_user.id]
 
 
 async def admin_sessions_service(message: types.Message):
