@@ -117,8 +117,10 @@ async def handle_message(message: types.Message):
                     types.KeyboardButton(text="Kino qoshish 🎬"),
                     types.KeyboardButton(text="Kinolar royxati 🎬")
                 ],
-                [types.KeyboardButton(text="Kino o'chirish ❌")],
-                [types.KeyboardButton(text="Kanal qo'shish ➕")],
+                [
+                    types.KeyboardButton(text="Kino o'chirish ❌"),
+                    types.KeyboardButton(text="Kanal qo'shish ➕")
+                ],
                 [types.KeyboardButton(text="Orqaga qaytish 🔙")],
             ]
             keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)
