@@ -9,8 +9,8 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram import Bot, types
 
 logging.basicConfig(level=logging.INFO)
-bot = Bot(token="6919625489:AAGRw9EzaogxU7Hubfk1qhGldhNs1iNhfTo")
-# bot = Bot(token="5701012090:AAGRTr0XVls7yrfcyX1XaP1btLV4D9mWYjY")
+# bot = Bot(token="6919625489:AAGRw9EzaogxU7Hubfk1qhGldhNs1iNhfTo")
+bot = Bot(token="6931061308:AAG4a6WYw2Qsm6sdnLzVG-ccFj_KAxT-0Hc")
 dp = Dispatcher()
 chanel_add_session = {}
 film_delete_session = {}
