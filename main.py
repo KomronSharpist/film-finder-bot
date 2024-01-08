@@ -13,7 +13,8 @@ import time
 
 logging.basicConfig(level=logging.INFO)
 # bot = Bot(token="6919625489:AAGRw9EzaogxU7Hubfk1qhGldhNs1iNhfTo") # test
-bot = Bot(token="6931061308:AAG4a6WYw2Qsm6sdnLzVG-ccFj_KAxT-0Hc")
+# bot = Bot(token="6931061308:AAG4a6WYw2Qsm6sdnLzVG-ccFj_KAxT-0Hc") # 1 inci
+bot = Bot(token="5916542202:AAEZ-Bwq30exP_bAfVY1cP7pDd2U4tkevVM")
 dp = Dispatcher()
 chanel_add_session = {}
 chanel_control_session = {}
