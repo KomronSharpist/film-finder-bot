@@ -148,6 +148,8 @@ def get_duplicates():
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
+    if message.chat.type != 'private':
+        return
     user_id = message.from_user.id
     if user_id in user_states.keys():
         user_states[user_id]['awaiting_response'] = False
@@ -188,12 +190,16 @@ async def cmd_start(message: types.Message):
 
 @dp.message(Command("myid"))
 async def cmd_start(message: types.Message):
+    if message.chat.type != 'private':
+        return
     keyboard = types.ReplyKeyboardRemove()
     await message.answer(f"Sizning ID raqamingiz: {message.from_user.id}", reply_markup=keyboard)
 
 
 @dp.message(Command("admin"))
 async def cmd_start_admin(message: types.Message):
+    if message.chat.type != 'private':
+        return
     user_id = message.from_user.id
     user = message.from_user
     if user_id in admin_userIds.keys():
@@ -281,6 +287,8 @@ async def check_subcription(message: types.Message):
 
 @dp.message()
 async def handle_message(message: types.Message):
+    if message.chat.type != 'private':
+        return
     global new_api_key, last_api_key_update, video_file_id, reklam, reklamBuilder
     user_id = message.from_user.id
     user_message = message.text
@@ -569,9 +577,13 @@ async def get_list_films(message: types.Message):
             await bot.send_message(message.from_user.id, "Hozircha hech qanday filmlar yo'q❗️")
             return
 
-        films_list = "\n".join(
-            [f"Kino:\n\ncode: {entry['code']}\n   caption: {entry.get('caption', 'No caption')}\n\n" for entry in data])
-        await bot.send_message(message.from_user.id, films_list, parse_mode="HTML")
+        films_per_message = 10  # Set the number of films per message
+        films_chunks = [data[i:i + films_per_message] for i in range(0, len(data), films_per_message)]
+
+        for chunk in films_chunks:
+            films_list = "\n".join(
+                [f"Kino:\n\ncode: {entry['code']}\n   caption: {entry.get('caption', 'No caption')}\n\n" for entry in chunk])
+            await bot.send_message(message.from_user.id, films_list, parse_mode="HTML")
 
     except FileNotFoundError:
         await bot.send_message(message.from_user.id, "Hozircha hech qanday filmlar yo'q❗️")
