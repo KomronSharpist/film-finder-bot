@@ -13,8 +13,8 @@ import time
 
 logging.basicConfig(level=logging.INFO)
 # bot = Bot(token="6919625489:AAGRw9EzaogxU7Hubfk1qhGldhNs1iNhfTo") # test
-# bot = Bot(token="6931061308:AAG4a6WYw2Qsm6sdnLzVG-ccFj_KAxT-0Hc") # 1 inci
-bot = Bot(token="5916542202:AAEZ-Bwq30exP_bAfVY1cP7pDd2U4tkevVM")
+bot = Bot(token="6931061308:AAG4a6WYw2Qsm6sdnLzVG-ccFj_KAxT-0Hc") # 1 inci
+# bot = Bot(token="5916542202:AAEZ-Bwq30exP_bAfVY1cP7pDd2U4tkevVM")
 dp = Dispatcher()
 chanel_add_session = {}
 chanel_control_session = {}
@@ -28,9 +28,9 @@ send_message_session = {}
 inline_keyboard_session = {}
 add_inline_keyboard_session = {}
 logging.basicConfig(level=logging.INFO)
-admin_userIds = {1052097431: "𝙺𝚘𝚖𝚛𝚘𝚗", 6723202097: "Admin"}
+admin_userIds = {1052097431: "𝙺𝚘𝚖𝚛𝚘𝚗", 938180187: "Admin"}
 today = datetime.now().date()
-ownerId = [6723202097, 1052097431]
+ownerId = [938180187, 1052097431]
 user_request_counts = defaultdict(int)
 user_last_request = {}
 reklam = ""
