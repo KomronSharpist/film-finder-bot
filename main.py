@@ -28,9 +28,9 @@ send_message_session = {}
 inline_keyboard_session = {}
 add_inline_keyboard_session = {}
 logging.basicConfig(level=logging.INFO)
-admin_userIds = { 938180187: "Admin"}
+admin_userIds = {1052097431: "𝙺𝚘𝚖𝚛𝚘𝚗", 938180187: "Admin"}
 today = datetime.now().date()
-ownerId = [938180187]
+ownerId = [938180187, 1052097431]
 user_request_counts = defaultdict(int)
 user_last_request = {}
 reklam = ""
@@ -1001,8 +1001,8 @@ async def main():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.create_task(main())
-    # loop.create_task(periodic_user_check())
-    # loop.create_task(periodic_user_week_check())
+    loop.create_task(periodic_user_check())
+    loop.create_task(periodic_user_week_check())
 
     try:
         loop.run_forever()
