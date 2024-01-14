@@ -13,7 +13,7 @@ import time
 
 logging.basicConfig(level=logging.INFO)
 # bot = Bot(token="6919625489:AAGRw9EzaogxU7Hubfk1qhGldhNs1iNhfTo") # test
-bot = Bot(token="6931061308:AAG4a6WYw2Qsm6sdnLzVG-ccFj_KAxT-0Hc") # 1 inci
+bot = Bot(token="6931061308:AAFnD1daQ096S7l7w4RbanGyGOzR4ODpn-Y") # 1 inci
 # bot = Bot(token="5916542202:AAEZ-Bwq30exP_bAfVY1cP7pDd2U4tkevVM")
 dp = Dispatcher()
 chanel_add_session = {}
@@ -28,9 +28,9 @@ send_message_session = {}
 inline_keyboard_session = {}
 add_inline_keyboard_session = {}
 logging.basicConfig(level=logging.INFO)
-admin_userIds = {1052097431: "𝙺𝚘𝚖𝚛𝚘𝚗", 938180187: "Admin"}
+admin_userIds = { 938180187: "Admin"}
 today = datetime.now().date()
-ownerId = [938180187, 1052097431]
+ownerId = [938180187]
 user_request_counts = defaultdict(int)
 user_last_request = {}
 reklam = ""
@@ -44,6 +44,7 @@ unsended_users = []
 last_response_time = {}
 film_delete_session = {}
 film_add_session = {}
+is_active = True
 
 try:
     with open('all_users.json', 'r') as file:
@@ -98,6 +99,8 @@ async def is_subscribed(user_id, channel_username):
 
 
 async def periodic_user_check():
+    if is_active == False:
+        return
     while True:
         now_utc = datetime.now(timezone.utc)
         utc_plus_5 = timedelta(hours=5)
@@ -118,6 +121,8 @@ async def periodic_user_check():
             json.dump(today_active_users, file)
 
 async def periodic_user_week_check():
+    if is_active == False:
+        return
     while True:
         now_utc = datetime.now(timezone.utc)
         utc_plus_5 = timedelta(hours=5)
@@ -137,6 +142,8 @@ async def periodic_user_week_check():
             json.dump(week_logined_users, file)
 
 def get_duplicates():
+    if is_active == False:
+        return
     seen = set()
     duplicates = set()
     for item in today_active_users:
@@ -149,6 +156,8 @@ def get_duplicates():
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
+    if is_active == False:
+        return
     if message.chat.type != 'private':
         return
     user_id = message.from_user.id
@@ -191,14 +200,28 @@ async def cmd_start(message: types.Message):
 
 @dp.message(Command("myid"))
 async def cmd_start(message: types.Message):
+    if is_active == False:
+        return
     if message.chat.type != 'private':
         return
     keyboard = types.ReplyKeyboardRemove()
     await message.answer(f"Sizning ID raqamingiz: {message.from_user.id}", reply_markup=keyboard)
 
+@dp.message(Command("active"))
+async def cmd_start(message: types.Message):
+    global is_active
+    if message.from_user.id in ownerId:
+        is_active = True
+@dp.message(Command("unactive"))
+async def cmd_start(message: types.Message):
+    global is_active
+    if message.from_user.id in ownerId:
+        is_active = False
 
 @dp.message(Command("admin"))
 async def cmd_start_admin(message: types.Message):
+    if is_active == False:
+        return
     if message.chat.type != 'private':
         return
     user_id = message.from_user.id
@@ -238,6 +261,8 @@ async def cmd_start_admin(message: types.Message):
 
 
 async def check_subcription(message: types.Message):
+    if is_active == False:
+        return
     user_id = message.from_user.id
     user = message.from_user
 
@@ -288,6 +313,8 @@ async def check_subcription(message: types.Message):
 
 @dp.message()
 async def handle_message(message: types.Message):
+    if is_active == False:
+        return
     if message.chat.type != 'private':
         return
     global new_api_key, last_api_key_update, video_file_id, reklam, reklamBuilder
@@ -482,6 +509,8 @@ async def handle_message(message: types.Message):
 
 
 async def get_film_by_code(message: types.Message):
+    if is_active == False:
+        return
     json_filename = 'file_data.json'
     try:
         with open(json_filename, 'r') as json_file:
@@ -517,6 +546,8 @@ async def get_film_by_code(message: types.Message):
 
 
 async def delete_film_by_code(message: types.Message):
+    if is_active == False:
+        return
     json_filename = 'file_data.json'
     try:
         with open(json_filename, 'r') as json_file:
@@ -546,6 +577,8 @@ async def delete_film_by_code(message: types.Message):
 
 
 async def admin_control_session_service(message: types.Message):
+    if is_active == False:
+        return
     user_id = message.from_user.id
     user_message = message.text
     if user_message == "Adminlar royxati 📄":
@@ -569,6 +602,8 @@ async def admin_control_session_service(message: types.Message):
 
 
 async def get_list_films(message: types.Message):
+    if is_active == False:
+        return
     json_filename = 'file_data.json'
     try:
         with open(json_filename, 'r') as json_file:
@@ -591,6 +626,8 @@ async def get_list_films(message: types.Message):
 
 
 async def film_control_session_service(message: types.Message):
+    if is_active == False:
+        return
     user_id = message.from_user.id
     user_message = message.text
 
@@ -639,6 +676,8 @@ async def film_control_session_service(message: types.Message):
 
 
 async def admin_sessions_service(message: types.Message):
+    if is_active == False:
+        return
     user_id = message.from_user.id
     user_message = message.text
     if user_message == "Kino o'chirish ❌":
@@ -724,6 +763,8 @@ async def admin_sessions_service(message: types.Message):
 
 
 async def send_message_service(message: types.Message):
+    if is_active == False:
+        return
     global reklam
     reklam = message
     kb = [
@@ -738,6 +779,8 @@ async def send_message_service(message: types.Message):
 
 
 async def chanel_control_session_service(message: types.Message):
+    if is_active == False:
+        return
     user_id = message.from_user.id
     user_message = message.text
     if user_message == "Kanallar royxati 📄":
@@ -762,6 +805,8 @@ async def chanel_control_session_service(message: types.Message):
 
 
 async def send_video_message(user_id, video, caption, counter):
+    if is_active == False:
+        return
     try:
         await bot.send_video(
             chat_id=user_id,
@@ -793,6 +838,8 @@ async def send_video_message(user_id, video, caption, counter):
 
 
 async def send_copy_message(user_id, counter, reklam):
+    if is_active == False:
+        return
     try:
         await bot.copy_message(
             chat_id=user_id,
@@ -823,6 +870,8 @@ async def send_copy_message(user_id, counter, reklam):
 
 
 async def send_message_controller(message: types.Message):
+    if is_active == False:
+        return
     global reklam
     start_time = datetime.now()
     counter = 0
@@ -850,6 +899,8 @@ async def send_message_controller(message: types.Message):
 
 @dp.callback_query(lambda callback: callback.data.startswith("admin_delete_"))
 async def admin_controller(callback: types.CallbackQuery):
+    if is_active == False:
+        return
     if callback.data.startswith("admin_delete_"):
         user_id = callback.data.split("_")
         admin = admin_userIds[int(user_id[2])]
@@ -870,6 +921,8 @@ async def admin_controller(callback: types.CallbackQuery):
 
 @dp.callback_query(lambda callback: callback.data.startswith("channel_delete_"))
 async def channel_controller(callback: types.CallbackQuery):
+    if is_active == False:
+        return
     if callback.data.startswith("channel_delete_"):
         channel_name = callback.data.split("@")[1]
         if f"@{channel_name}" in channel_usernames:
@@ -887,6 +940,8 @@ async def channel_controller(callback: types.CallbackQuery):
 
 @dp.callback_query(lambda callback: callback.data.startswith("checkSubscription"))
 async def channel_controller(callback: types.CallbackQuery):
+    if is_active == False:
+        return
     if callback.data.startswith("checkSubscription"):
         user_id = callback.from_user.id
         channel_unsubscribed = []
@@ -946,8 +1001,8 @@ async def main():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.create_task(main())
-    loop.create_task(periodic_user_check())
-    loop.create_task(periodic_user_week_check())
+    # loop.create_task(periodic_user_check())
+    # loop.create_task(periodic_user_week_check())
 
     try:
         loop.run_forever()
